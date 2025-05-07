@@ -5,6 +5,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: pink
+}
+
+.Appp {
+  text-align: center;
+  position: center;
+}
+
+h1 {
+  position: center;
 }
 
 code {

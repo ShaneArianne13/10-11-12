@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import StudentForm from "./components/StudentForm";
+import StudentList from "./components/StudentList";
 
-function App() {
+const App = () => {
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    const response = await axios.get("http://localhost:5000/api/students");
+    setStudents(response.data);
+  };
+
+  const addStudent = async (formData) => {
+    await axios.post("http://localhost:5000/api/students", formData);
+    fetchStudents();
+  };
+
+  const deleteStudent = async (id) => {
+    await axios.delete(`http://localhost:5000/api/students/${id}`);
+    fetchStudents();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container text-center">
+      <h1>Student Recording System</h1>
+      <StudentForm addStudent={addStudent} />
+      <StudentList students={students} deleteStudent={deleteStudent} />
     </div>
   );
-}
+};
 
 export default App;
