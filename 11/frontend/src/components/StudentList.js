@@ -2,7 +2,7 @@ import React from "react";
 
 const StudentList = ({ students, deleteStudent }) => {
   return (
-    <div className="text-center">
+    <div className="list-container">
       <h2>Student List</h2>
       <ul>
         {students.map((student) => (
@@ -16,5 +16,4 @@ const StudentList = ({ students, deleteStudent }) => {
     </div>
   );
 };
-
 export default StudentList;

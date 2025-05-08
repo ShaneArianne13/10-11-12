@@ -11,22 +11,38 @@ const App = () => {
   }, []);
 
   const fetchStudents = async () => {
-    const response = await axios.get("http://localhost:5000/api/students");
-    setStudents(response.data);
+    try {
+      const response = await axios.get("http://localhost:5000/api/students");
+      setStudents(response.data);
+    } catch (error) {
+      console.error("Error fetching students:", error.response?.data || error.message);
+    }
   };
 
   const addStudent = async (formData) => {
-    await axios.post("http://localhost:5000/api/students", formData);
-    fetchStudents();
+    try {
+      await axios.post("http://localhost:5000/api/students", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      fetchStudents();
+    } catch (error) {
+      console.error("Error adding student:", error.response?.data || error.message);
+    }
   };
 
   const deleteStudent = async (id) => {
-    await axios.delete(`http://localhost:5000/api/students/${id}`);
-    fetchStudents();
+    try {
+      await axios.delete(`http://localhost:5000/api/students/${id}`);
+      fetchStudents();
+    } catch (error) {
+      console.error("Error deleting student:", error.response?.data || error.message);
+    }
   };
 
   return (
-    <div className="container text-center">
+    <div className="container-text-center">
       <h1>Student Recording System</h1>
       <StudentForm addStudent={addStudent} />
       <StudentList students={students} deleteStudent={deleteStudent} />

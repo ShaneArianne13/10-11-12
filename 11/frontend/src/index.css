@@ -8,9 +8,10 @@ body {
   background-color: pink
 }
 
-.Appp {
+.container-text-center {
   text-align: center;
-  position: center;
+  margin-top: 20px;
+  color: #333;
 }
 
 h1 {
